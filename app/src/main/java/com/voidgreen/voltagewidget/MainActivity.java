@@ -1,4 +1,4 @@
-package com.shlapak.yaroslav.voltagewidget;
+package com.voidgreen.voltagewidget;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.shlapak.yaroslav.voltagewidget.R;
 
 
 public class MainActivity extends ActionBarActivity {
