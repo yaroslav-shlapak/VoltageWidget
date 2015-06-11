@@ -5,14 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-
-import com.shlapak.yaroslav.voltagewidget.R;
-
 
 public class MainActivity extends ActionBarActivity {
     private TextView batteryInfoTextView;
@@ -50,18 +47,5 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private BroadcastReceiver batteryInfoReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            int health = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, 0);
-            int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
-            int temperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0);
-            int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 3000);
-
-            batteryInfoTextView.setText("health: " + health + "\n" +
-                    "level: " + level + "\n" +
-                    "voltage: " + voltage + "\n" +
-                    "temperature: " + temperature + "\n");
-        }
-    };
+    private BroadcastReceiver batteryInfoReceiver = new VoltageWidgetProvider();
 }
