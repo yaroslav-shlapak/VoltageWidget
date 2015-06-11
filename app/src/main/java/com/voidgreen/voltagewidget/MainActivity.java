@@ -18,9 +18,9 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        batteryInfoTextView = (TextView) findViewById(R.id.batteryInfoTextView);
+        //batteryInfoTextView = (TextView) findViewById(R.id.batteryInfoTextView);
 
-        registerReceiver(batteryInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        //this.registerReceiver(batteryInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
     }
 
@@ -47,5 +47,4 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private BroadcastReceiver batteryInfoReceiver = new VoltageWidgetProvider();
 }
