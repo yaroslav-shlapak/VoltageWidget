@@ -1,23 +1,17 @@
 package com.voidgreen.voltagewidget;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.BatteryManager;
-import android.util.Log;
-import android.widget.RemoteViews;
-import android.widget.TextView;
-
-import java.util.Random;
 
 /**
  * Created by y.shlapak on Jun 10, 2015.
  */
 public class VoltageWidgetProvider extends AppWidgetProvider {
-    String textViewString;
+    private String textViewString;
 
     private static final String ACTION_CLICK = "ACTION_CLICK";
 
@@ -29,7 +23,7 @@ public class VoltageWidgetProvider extends AppWidgetProvider {
         int temperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0);
         int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 3000);
 
-        String textViewString = "health: " + health + "\n" +
+        textViewString = "health: " + health + "\n" +
                 "level: " + level + "\n" +
                 "voltage: " + voltage + "\n" +
                 "temperature: " + temperature + "\n";
@@ -39,28 +33,16 @@ public class VoltageWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
                          int[] appWidgetIds) {
-
-        // Get all ids
         ComponentName thisWidget = new ComponentName(context,
                 VoltageWidgetProvider.class);
         int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
-        for (int widgetId : allWidgetIds) {
 
-            RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                    R.layout.widget_layout);
-            // Set the text
-            remoteViews.setTextViewText(R.id.batteryInfoTextView, textViewString));
+        // Build the intent to call the service
+        Intent intent = new Intent(context.getApplicationContext(),
+                UpdateWidgetService.class);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, allWidgetIds);
 
-            // Register an onClickListener
-            Intent intent = new Intent(context, VoltageWidgetProvider.class);
-
-            intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
-
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
-                    0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            remoteViews.setOnClickPendingIntent(R.id.batteryInfoTextView, pendingIntent);
-            appWidgetManager.updateAppWidget(widgetId, remoteViews);
-        }
+        // Update the widgets via the service
+        context.startService(intent);
     }
 }
