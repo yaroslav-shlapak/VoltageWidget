@@ -1,14 +1,13 @@
 package com.voidgreen.voltagewidget;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 /**
@@ -20,34 +19,30 @@ public class VoltageWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
                          int[] appWidgetIds) {
-        ComponentName thisWidget = new ComponentName(context,
-                VoltageWidgetProvider.class);
-        int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
-        for (int widgetId : allWidgetIds) {
-            // create some random data
 
-            RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                    R.layout.widget_layout);
-                 // Set the text
-            remoteViews.setTextViewText(R.id.batteryInfoTextView, textViewString);
+        final int N = appWidgetIds.length;
+        // Perform this loop procedure for each App Widget that belongs to this provider
+        context.getApplicationContext().registerReceiver(batteryInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        Log.v("onUpdate", "VoltageWidgetProvider onUpdate");
+        for (int i=0; i<N; i++) {
+            int appWidgetId = appWidgetIds[i];
 
-            // Register an onClickListener
-            Intent intent = new Intent(context, VoltageWidgetProvider.class);
 
-            intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
-                    0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            remoteViews.setOnClickPendingIntent(R.id.batteryInfoTextView, pendingIntent);
-            appWidgetManager.updateAppWidget(widgetId, remoteViews);
+            // Get the layout for the App Widget and attach an on-click listener
+            // to the button
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
+            views.setTextViewText(R.id.batteryInfoTextView, textViewString);
+
+            // Tell the AppWidgetManager to perform an update on the current app widget
+            appWidgetManager.updateAppWidget(appWidgetId, views);
         }
     }
 
     @Override
     public void onEnabled(Context context) {
         super.onEnabled(context);
-        context.getApplicationContext().registerReceiver(batteryInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+
     }
 
     private BroadcastReceiver batteryInfoReceiver = new BroadcastReceiver() {
@@ -58,6 +53,7 @@ public class VoltageWidgetProvider extends AppWidgetProvider {
             int temperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0);
             int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 3000);
 
+            Log.v("BroadcastReceiver", "BroadcastReceiver");
             textViewString = "health: " + health + "\n" +
                     "level: " + level + "\n" +
                     "voltage: " + voltage + "\n" +
