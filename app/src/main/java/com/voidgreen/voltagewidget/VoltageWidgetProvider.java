@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.BatteryManager;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -22,42 +23,19 @@ public class VoltageWidgetProvider extends AppWidgetProvider {
 
         final int N = appWidgetIds.length;
         // Perform this loop procedure for each App Widget that belongs to this provider
-        context.getApplicationContext().registerReceiver(batteryInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-        Log.v("onUpdate", "VoltageWidgetProvider onUpdate");
+
         for (int i=0; i<N; i++) {
             int appWidgetId = appWidgetIds[i];
-
-
 
             // Get the layout for the App Widget and attach an on-click listener
             // to the button
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
-            views.setTextViewText(R.id.batteryInfoTextView, textViewString);
+            SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.battery_info_shared_pref), Context.MODE_PRIVATE);
+            views.setTextViewText(R.id.batteryInfoTextViewWidget, sharedPreferences.getString(context.getString(R.string.battery_info_shared_pref), textViewString));
 
             // Tell the AppWidgetManager to perform an update on the current app widget
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
     }
 
-    @Override
-    public void onEnabled(Context context) {
-        super.onEnabled(context);
-
-    }
-
-    private BroadcastReceiver batteryInfoReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            int health = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, 0);
-            int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
-            int temperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0);
-            int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 3000);
-
-            Log.v("BroadcastReceiver", "BroadcastReceiver");
-            textViewString = "health: " + health + "\n" +
-                    "level: " + level + "\n" +
-                    "voltage: " + voltage + "\n" +
-                    "temperature: " + temperature + "\n";
-        }
-    };
 }
