@@ -42,7 +42,7 @@ public class VoltageWidgetProvider extends AppWidgetProvider {
     @Override
     public void onEnabled(Context context) {
         super.onEnabled(context);
-        AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager am =(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
         //After after 3 seconds
@@ -60,8 +60,7 @@ public class VoltageWidgetProvider extends AppWidgetProvider {
             // Get the layout for the App Widget and attach an on-click listener
             // to the button
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
-            SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.battery_info_shared_pref), Context.MODE_PRIVATE);
-            views.setTextViewText(R.id.batteryInfoTextViewWidget, sharedPreferences.getString(context.getString(R.string.battery_info_shared_pref), textViewString));
+            views.setTextViewText(R.id.batteryInfoTextViewWidget, Utility.getBatteryInfo(context));
 
             // Tell the AppWidgetManager to perform an update on the current app widget
             appWidgetManager.updateAppWidget(widgetId, views);

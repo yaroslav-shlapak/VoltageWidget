@@ -22,7 +22,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //batteryInfoTextView = (TextView) findViewById(R.id.batteryInfoTextView);
+        batteryInfoTextView = (TextView) findViewById(R.id.batteryInfoTextView);
         batteryInfoSharedPref = getSharedPreferences(getString(R.string.battery_info_shared_pref) ,
                 Context.MODE_PRIVATE);
 
@@ -67,7 +67,9 @@ public class MainActivity extends ActionBarActivity {
                     "temperature: " + temperature + "\n";
             SharedPreferences.Editor editor = batteryInfoSharedPref.edit();
             editor.putString(getString(R.string.battery_info_shared_pref), textViewString);
-            editor.commit();
+            editor.apply();
+
+            batteryInfoTextView.setText(textViewString);
 
         }
     };

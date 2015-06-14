@@ -1,8 +1,11 @@
 package com.voidgreen.voltagewidget;
 
+import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.PowerManager;
 import android.widget.RemoteViews;
 
@@ -20,9 +23,10 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
         //You can do the processing here update the widget/remote views.
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                R.layout.time_widget_layout);
-        remoteViews.setTextViewText(R.id.tvTime, Utility.getCurrentTime("hh:mm:ss a"));
-        ComponentName thiswidget = new ComponentName(context, TimeWidgetProvider.class);
+                R.layout.widget_layout);
+
+        remoteViews.setTextViewText(R.id.batteryInfoTextViewWidget, Utility.getBatteryInfo(context));
+        ComponentName thiswidget = new ComponentName(context, VoltageWidgetProvider.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         manager.updateAppWidget(thiswidget, remoteViews);
         //Release the lock
