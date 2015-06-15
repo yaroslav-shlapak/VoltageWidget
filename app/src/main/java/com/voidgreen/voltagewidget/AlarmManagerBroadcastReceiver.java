@@ -5,8 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.PowerManager;
 import android.widget.RemoteViews;
 
 /**
@@ -16,21 +14,18 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "YOUR TAG");
-        //Acquire the lock
-        wl.acquire();
-
-        //You can do the processing here update the widget/remote views.
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                 R.layout.widget_layout);
 
-        remoteViews.setTextViewText(R.id.batteryInfoTextViewWidget, Utility.getBatteryInfo(context));
-        ComponentName thiswidget = new ComponentName(context, VoltageWidgetProvider.class);
+        Intent i = new Intent(context, BatteryInfoService.class);
+        context.startService(i);
+
+        remoteViews.setTextViewText(R.id.batteryInfoTextViewWidget, Utility.getSavedBatteryInfo(context));
+        ComponentName batteryInfoWidget = new ComponentName(context, VoltageWidgetProvider.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
-        manager.updateAppWidget(thiswidget, remoteViews);
-        //Release the lock
-        wl.release();
+        manager.updateAppWidget(batteryInfoWidget, remoteViews);
+
     }
+
 }
 
