@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.BatteryManager;
 
-/**
+/**+
  * Created by y.shlapak on Jun 15, 2015.
  */
 public class BatteryInfoReceiver extends BroadcastReceiver {
