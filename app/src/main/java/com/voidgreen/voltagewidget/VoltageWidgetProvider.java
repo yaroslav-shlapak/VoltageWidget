@@ -24,6 +24,10 @@ public class VoltageWidgetProvider extends AppWidgetProvider {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
             views.setTextViewText(R.id.batteryInfoTextViewWidget, Utility.getSavedBatteryInfo(context));
 
+            Intent intent = new Intent(context, SettingsActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+            views.setOnClickPendingIntent(R.id.batteryInfoTextViewWidget, pendingIntent);
+
             appWidgetManager.updateAppWidget(widgetId, views);
         }
     }
