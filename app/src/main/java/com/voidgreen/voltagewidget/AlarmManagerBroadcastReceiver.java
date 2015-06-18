@@ -23,7 +23,7 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         manager.updateAppWidget(batteryInfoWidget, remoteViews);
 
-        Log.d("AlarmManager", "starting alarm manager");
+        Log.d("AlarmManager", "starting alarm manager" + batteryInfoWidget);
 
     }
 
