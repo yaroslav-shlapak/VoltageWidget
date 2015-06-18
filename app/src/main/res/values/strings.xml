@@ -3,7 +3,8 @@
 
     <string name="batteryInfo">Battery Info</string>
     <string name="action_settings">Settings</string>
-    <string name="battery_info_shared_pref">com.voidgreen.voltagewidget</string>
+    <string name="voltage_widget_shared_pref">com.voidgreen.voltagewidget</string>
+    <string name="battery_info_shared_pref_key">battery info</string>
     <string name="pref_text_size_key">text size</string>
     <string name="pref_text_size_title">Text size</string>
     <string name="pref_update_period_key">update period</string>

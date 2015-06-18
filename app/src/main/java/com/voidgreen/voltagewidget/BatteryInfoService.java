@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
+import android.util.Log;
 
 /**
  * Created by y.shlapak on Jun 11, 2015.
@@ -26,6 +27,8 @@ public class BatteryInfoService extends Service {
         IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         receiver = new BatteryInfoReceiver();
         registerReceiver(receiver, filter);
+
+        Log.d("BatteryInfoService", "BatteryInfoService.onCreate");
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 /**
@@ -17,13 +18,12 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                 R.layout.widget_layout);
 
-        Intent i = new Intent(context, BatteryInfoService.class);
-        context.startService(i);
-
         remoteViews.setTextViewText(R.id.batteryInfoTextViewWidget, Utility.getSavedBatteryInfo(context));
         ComponentName batteryInfoWidget = new ComponentName(context, VoltageWidgetProvider.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         manager.updateAppWidget(batteryInfoWidget, remoteViews);
+
+        Log.d("AlarmManager", "starting alarm manager");
 
     }
 
