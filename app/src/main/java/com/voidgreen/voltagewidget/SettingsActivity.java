@@ -38,16 +38,8 @@ public class SettingsActivity extends PreferenceActivity {
                     AppWidgetManager.INVALID_APPWIDGET_ID);
         }
 
-
-
         Intent i = new Intent(context, BatteryInfoService.class);
         context.startService(i);
-        Log.d("SettingsActivity", "startService");
-
-/*            Intent intentSettings = new Intent(context, SettingsActivity.class);
-            intentSettings.putExtra(EXTRA_STRING, false);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intentSettings, 0);
-            views.setOnClickPendingIntent(R.id.batteryInfoTextViewWidget, pendingIntent);*/
 
     }
 
@@ -60,16 +52,9 @@ public class SettingsActivity extends PreferenceActivity {
         views.setTextColor(R.id.batteryInfoTextViewWidget, voltageWidgetData.getTextColor());
         views.setTextViewTextSize(R.id.batteryInfoTextViewWidget, TypedValue.COMPLEX_UNIT_SP, voltageWidgetData.getTextSize());
 
-
-/*        Intent alarmManagerIntent = new Intent(context, AlarmManagerBroadcastReceiver.class);
-        PendingIntent pendingIntentAlarmManager = PendingIntent.getBroadcast(context, 0, alarmManagerIntent, 0);
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis() + 1000,
-                Long.parseLong(voltageWidgetData.getUpdateInterval()), pendingIntentAlarmManager);*/
-        Utility.updateAllWidgets(context);
-
+        Utility.saveBatteryInfo(context, "XXXX");
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        appWidgetManager.updateAppWidget(mAppWidgetId, views);
+        Utility.updateWidget(context, appWidgetManager, views, mAppWidgetId);
 
         Intent resultValue = new Intent();
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
@@ -77,12 +62,5 @@ public class SettingsActivity extends PreferenceActivity {
         finish();
     }
 
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-
-    }
 
 }

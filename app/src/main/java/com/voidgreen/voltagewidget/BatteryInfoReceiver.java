@@ -14,12 +14,9 @@ public class BatteryInfoReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 3000);
 
-        String textViewString = Integer.toString(voltage);
-        Log.d("BatteryInfoReceiver", "before saveBatteryInfo");
-        Utility.saveBatteryInfo(context, textViewString);
+        String string = Integer.toString(voltage);
 
+        Utility.saveBatteryInfo(context, string);
         Utility.updateAllWidgets(context);
-
-        Log.d("BatteryInfoReceiver", "BatteryInfoReceiver.onReceive");
     }
 }

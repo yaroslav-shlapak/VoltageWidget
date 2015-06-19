@@ -18,7 +18,7 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                 R.layout.widget_layout);
 
-        remoteViews.setTextViewText(R.id.batteryInfoTextViewWidget, Utility.getSavedBatteryInfo(context, 10));
+        remoteViews.setTextViewText(R.id.batteryInfoTextViewWidget, Utility.getSavedBatteryInfo(context));
         ComponentName batteryInfoWidget = new ComponentName(context, VoltageWidgetProvider.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         manager.updateAppWidget(batteryInfoWidget, remoteViews);
