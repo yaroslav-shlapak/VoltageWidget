@@ -5,9 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.EditTextPreference;
-import android.preference.ListPreference;
-import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceGroup;
@@ -58,7 +55,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         views.setTextColor(R.id.batteryInfoTextViewWidget, voltageWidgetData.getTextColor());
         views.setTextViewTextSize(R.id.batteryInfoTextViewWidget, TypedValue.COMPLEX_UNIT_SP, voltageWidgetData.getTextSize());
 
-        Utility.saveBatteryInfo(context, "XXXX");
+        Utility.saveBatteryInfo(context, Utility.DEFAULT_STRING);
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         Utility.updateWidget(context, appWidgetManager, views, mAppWidgetId);
 
