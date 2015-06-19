@@ -1,10 +1,6 @@
 package com.voidgreen.voltagewidget;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetProvider;
-import android.content.Context;
-import android.content.Intent;
 
 /**
  * Created by y.shlapak on Jun 10, 2015.
@@ -40,7 +36,7 @@ public class VoltageWidgetProvider extends AppWidgetProvider {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis() + 1000 * 3, 1000, pendingIntent);
     }*/
-
+/*
     @Override
     public void onDisabled(Context context) {
 
@@ -51,7 +47,7 @@ public class VoltageWidgetProvider extends AppWidgetProvider {
         alarmManager.cancel(pendingIntent);
 
         super.onDisabled(context);
-    }
+    }*/
 
 
 }

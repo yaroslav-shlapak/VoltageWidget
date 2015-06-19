@@ -1,7 +1,5 @@
 package com.voidgreen.voltagewidget;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
@@ -63,11 +61,12 @@ public class SettingsActivity extends PreferenceActivity {
         views.setTextViewTextSize(R.id.batteryInfoTextViewWidget, TypedValue.COMPLEX_UNIT_SP, voltageWidgetData.getTextSize());
 
 
-        Intent alarmManagerIntent = new Intent(context, AlarmManagerBroadcastReceiver.class);
+/*        Intent alarmManagerIntent = new Intent(context, AlarmManagerBroadcastReceiver.class);
         PendingIntent pendingIntentAlarmManager = PendingIntent.getBroadcast(context, 0, alarmManagerIntent, 0);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis() + 1000,
-                Long.parseLong(voltageWidgetData.getUpdateInterval()), pendingIntentAlarmManager);
+                Long.parseLong(voltageWidgetData.getUpdateInterval()), pendingIntentAlarmManager);*/
+        Utility.updateAllWidgets(context);
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         appWidgetManager.updateAppWidget(mAppWidgetId, views);
