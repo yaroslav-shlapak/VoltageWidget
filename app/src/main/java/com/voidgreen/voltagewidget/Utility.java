@@ -10,7 +10,7 @@ import android.widget.RemoteViews;
  * Created by y.shlapak on Jun 15, 2015.
  */
 public class Utility {
-    private final static String defaultString = "XXXX";
+    private final static String defaultString = "waiting for update";
 
     public static String getSavedBatteryInfo(Context context) {
         SharedPreferences batteryInfoSharedPref = context.getSharedPreferences(context.getString(R.string.voltage_widget_shared_pref),

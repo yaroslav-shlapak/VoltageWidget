@@ -5,8 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
+import android.preference.ListPreference;
+import android.preference.MultiSelectListPreference;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.util.Log;
+import android.preference.PreferenceGroup;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -14,7 +18,7 @@ import android.widget.RemoteViews;
 /**
  * Created by y.shlapak on Jun 17, 2015.
  */
-public class SettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     int mAppWidgetId;
     private static final String EXTRA_STRING = "isFirstTime";
     SharedPreferences sharedPreferences;
@@ -41,6 +45,8 @@ public class SettingsActivity extends PreferenceActivity {
         Intent i = new Intent(context, BatteryInfoService.class);
         context.startService(i);
 
+        initSummary(getPreferenceScreen());
+
     }
 
     public void onApplyButtonClick(View v) {
@@ -63,4 +69,42 @@ public class SettingsActivity extends PreferenceActivity {
     }
 
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        updatePrefSummary(findPreference(key));
+    }
+
+    private void initSummary(Preference p) {
+        if (p instanceof PreferenceGroup) {
+            PreferenceGroup pGrp = (PreferenceGroup) p;
+            for (int i = 0; i < pGrp.getPreferenceCount(); i++) {
+                initSummary(pGrp.getPreference(i));
+            }
+        } else {
+            updatePrefSummary(p);
+        }
+    }
+
+    private void updatePrefSummary(Preference p) {
+        if (p instanceof NumberPickerPreference) {
+            VoltageWidgetData voltageWidgetData = new VoltageWidgetData(context);
+            p.setSummary("Current font size = " + voltageWidgetData.getTextSize());
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Set up a listener whenever a key changes
+        getPreferenceScreen().getSharedPreferences()
+                .registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Unregister the listener whenever a key changes
+        getPreferenceScreen().getSharedPreferences()
+                .unregisterOnSharedPreferenceChangeListener(this);
+    }
 }
