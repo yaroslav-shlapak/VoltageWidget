@@ -12,6 +12,9 @@ public class BatteryInfoReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 3000);
+        if (voltage < 3000) {
+            voltage = voltage * 1000;
+        }
 
         String string = Integer.toString(voltage);
 

@@ -29,6 +29,9 @@
 
         <receiver android:name=".AlarmManagerBroadcastReceiver" />
 
+
+
+
     </application>
 
 </manifest>

@@ -26,6 +26,8 @@ public class BatteryInfoService extends Service {
         IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         receiver = new BatteryInfoReceiver();
         registerReceiver(receiver, filter);
+/*        Intent intent = new Intent(Intent.ACTION_BATTERY_CHANGED);
+        sendBroadcast(intent);*/
     }
 
     @Override

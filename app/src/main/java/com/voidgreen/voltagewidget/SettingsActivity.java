@@ -17,8 +17,6 @@ import android.widget.RemoteViews;
  */
 public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     int mAppWidgetId;
-    private static final String EXTRA_STRING = "isFirstTime";
-    SharedPreferences sharedPreferences;
     Context context;
     RemoteViews views;
 
