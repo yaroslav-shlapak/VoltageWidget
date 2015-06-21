@@ -17,7 +17,7 @@ public class VoltageWidgetProvider extends AppWidgetProvider {
                 R.layout.widget_layout);
         VoltageWidgetData voltageWidgetData = new VoltageWidgetData(context);
         views.setTextColor(R.id.batteryInfoTextViewWidget, voltageWidgetData.getTextColor());
-        views.setTextViewTextSize(R.id.batteryInfoTextViewWidget, TypedValue.COMPLEX_UNIT_SP, voltageWidgetData.getTextSize());
+        views.setFloat(R.id.batteryInfoTextViewWidget, "setTextSize", voltageWidgetData.getTextSize());
 
         for (int widgetId : appWidgetIds) {
             Utility.updateWidget(context, appWidgetManager, views, widgetId);

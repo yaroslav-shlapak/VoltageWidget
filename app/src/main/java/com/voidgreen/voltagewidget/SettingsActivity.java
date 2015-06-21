@@ -51,7 +51,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     private void saveWidgetModification() {
         VoltageWidgetData voltageWidgetData = new VoltageWidgetData(context);
         views.setTextColor(R.id.batteryInfoTextViewWidget, voltageWidgetData.getTextColor());
-        views.setTextViewTextSize(R.id.batteryInfoTextViewWidget, TypedValue.COMPLEX_UNIT_SP, voltageWidgetData.getTextSize());
+        views.setFloat(R.id.batteryInfoTextViewWidget, "setTextSize", voltageWidgetData.getTextSize());
 
         Utility.saveBatteryInfo(context, Utility.DEFAULT_STRING);
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);

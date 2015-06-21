@@ -23,8 +23,8 @@ public class VoltageWidgetData {
         return updateInterval;
     }
 
-    private int textSize = 20;
-    private int textColor = Color.BLACK;
+    private int textSize = 40;
+    private int textColor = Color.WHITE;
     private String updateInterval = "1000";
 
     VoltageWidgetData(Context context) {
