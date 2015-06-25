@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceGroup;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -49,11 +48,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     }
 
     private void saveWidgetModification() {
-        VoltageWidgetData voltageWidgetData = new VoltageWidgetData(context);
-        views.setTextColor(R.id.batteryInfoTextViewWidget, voltageWidgetData.getTextColor());
-        views.setFloat(R.id.batteryInfoTextViewWidget, "setTextSize", voltageWidgetData.getTextSize());
-
-        Utility.saveBatteryInfo(context, Utility.DEFAULT_STRING);
+        Utility.saveBatteryInfo(context, Utility.getSavedBatteryInfo(context));
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         Utility.updateWidget(context, appWidgetManager, views, mAppWidgetId);
 

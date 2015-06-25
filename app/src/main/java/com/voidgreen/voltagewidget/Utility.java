@@ -39,6 +39,10 @@ public class Utility {
     }
 
     public static void updateWidget(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int widgetId) {
+        VoltageWidgetData voltageWidgetData = new VoltageWidgetData(context);
+        views.setTextColor(R.id.batteryInfoTextViewWidget, voltageWidgetData.getTextColor());
+        views.setFloat(R.id.batteryInfoTextViewWidget, "setTextSize", voltageWidgetData.getTextSize());
+
         views.setTextViewText(R.id.batteryInfoTextViewWidget, Utility.getSavedBatteryInfo(context));
         appWidgetManager.updateAppWidget(widgetId, views);
     }
