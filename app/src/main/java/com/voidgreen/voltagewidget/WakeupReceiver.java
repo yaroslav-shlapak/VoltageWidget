@@ -5,18 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 
 /**
- * Created by VOID on 13-06-15.
+ * Created by y.shlapak on Jun 26, 2015.
  */
-public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
-
+public class WakeupReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+
         Utility.startUpdateService(context);
-
         Utility.updateAllWidgets(context);
+        Utility.showToast(context, "WakeupReceiver");
 
-        Utility.showToast(context, "AlarmManagerBroadcastReceiver");
     }
-
 }
-

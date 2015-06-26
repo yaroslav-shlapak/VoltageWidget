@@ -3,8 +3,10 @@ package com.voidgreen.voltagewidget;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 /**
  * Created by y.shlapak on Jun 15, 2015.
@@ -45,5 +47,19 @@ public class Utility {
 
         views.setTextViewText(R.id.batteryInfoTextViewWidget, Utility.getSavedBatteryInfo(context));
         appWidgetManager.updateAppWidget(widgetId, views);
+    }
+
+    public static void startUpdateService(Context context) {
+        Intent i = new Intent(context, BatteryInfoService.class);
+        context.startService(i);
+    }
+
+    public static void stopUpdateService(Context context) {
+        Intent i = new Intent(context, BatteryInfoService.class);
+        context.stopService(i);
+    }
+
+    public static void showToast(Context context, String string) {
+        Toast.makeText(context, string, Toast.LENGTH_SHORT).show();
     }
 }

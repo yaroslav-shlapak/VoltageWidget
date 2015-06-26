@@ -20,5 +20,7 @@ public class BatteryInfoReceiver extends BroadcastReceiver {
 
         Utility.saveBatteryInfo(context, string);
         Utility.updateAllWidgets(context);
+
+        Utility.showToast(context, "BatteryInfoReceiver");
     }
 }
