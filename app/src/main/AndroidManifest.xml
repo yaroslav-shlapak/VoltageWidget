@@ -25,14 +25,8 @@
                 android:resource="@xml/widget_info" />
         </receiver>
 
-        <receiver android:name=".WakeupReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.ACTION_SCREEN_ON" />
-            </intent-filter>
-        </receiver>
-
-
         <service android:name=".BatteryInfoService"></service>
+        <service android:name=".UpdateService"></service>
 
         <receiver android:name=".AlarmManagerBroadcastReceiver" />
 

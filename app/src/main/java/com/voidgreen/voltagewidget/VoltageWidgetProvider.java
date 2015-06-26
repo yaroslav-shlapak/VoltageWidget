@@ -26,24 +26,19 @@ public class VoltageWidgetProvider extends AppWidgetProvider {
     public void onDeleted(Context context, int[] appWidgetIds) {
         super.onDeleted(context, appWidgetIds);
 
+        Utility.stopBatteryInfoService(context);
         Utility.stopUpdateService(context);
+        Utility.stopAlarm();
         Utility.showToast(context, "VoltageWidgetProvider:onDeleted");
-
-        if (alarmMgr!= null) {
-            alarmMgr.cancel(alarmIntent);
-        }
     }
 
     @Override
     public void onEnabled(Context context) {
         super.onEnabled(context);
 
+        Utility.startBatteryInfoService(context);
         Utility.startUpdateService(context);
-
-        alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
-        alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-        alarmMgr.set(AlarmManager.RTC, SystemClock.elapsedRealtime() + 60 * 1000, alarmIntent);
+        Utility.startAlarm(context);
         Utility.showToast(context, "VoltageWidgetProvider:onEnabled");
 
     }

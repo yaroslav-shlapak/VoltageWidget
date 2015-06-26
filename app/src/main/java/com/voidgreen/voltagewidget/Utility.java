@@ -1,10 +1,13 @@
 package com.voidgreen.voltagewidget;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.SystemClock;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -13,6 +16,8 @@ import android.widget.Toast;
  */
 public class Utility {
     public final static String DEFAULT_STRING = "WAIT";
+    private static  AlarmManager alarmMgr;
+    private static PendingIntent alarmIntent;
 
     public static String getSavedBatteryInfo(Context context) {
         SharedPreferences batteryInfoSharedPref = context.getSharedPreferences(context.getString(R.string.voltage_widget_shared_pref),
@@ -49,17 +54,41 @@ public class Utility {
         appWidgetManager.updateAppWidget(widgetId, views);
     }
 
-    public static void startUpdateService(Context context) {
+    public static void startBatteryInfoService(Context context) {
         Intent i = new Intent(context, BatteryInfoService.class);
         context.startService(i);
     }
 
-    public static void stopUpdateService(Context context) {
+    public static void stopBatteryInfoService(Context context) {
         Intent i = new Intent(context, BatteryInfoService.class);
         context.stopService(i);
     }
 
+    public static void startUpdateService(Context context) {
+        Intent i = new Intent(context, UpdateService.class);
+        context.startService(i);
+    }
+
+    public static void stopUpdateService(Context context) {
+        Intent i = new Intent(context, UpdateService.class);
+        context.stopService(i);
+    }
+
+
     public static void showToast(Context context, String string) {
-        Toast.makeText(context, string, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, string, Toast.LENGTH_LONG).show();
+    }
+
+    public static void startAlarm(Context context) {
+        alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        alarmIntent = PendingIntent.getBroadcast(context, 0, new Intent(context, AlarmManagerBroadcastReceiver.class), 0);
+        alarmMgr.setInexactRepeating(AlarmManager.RTC, SystemClock.elapsedRealtime() + 10 * 1000, 60 * 1000, alarmIntent);
+    }
+
+    public static void stopAlarm() {
+        if (alarmMgr!= null) {
+            alarmMgr.cancel(alarmIntent);
+        }
+
     }
 }

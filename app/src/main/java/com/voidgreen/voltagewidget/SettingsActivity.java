@@ -1,10 +1,13 @@
 package com.voidgreen.voltagewidget;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceGroup;
@@ -36,8 +39,10 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                     AppWidgetManager.INVALID_APPWIDGET_ID);
         }
 
-        Intent i = new Intent(context, BatteryInfoService.class);
-        context.startService(i);
+        Utility.startBatteryInfoService(context);
+        Utility.startUpdateService(context);
+
+        Utility.startAlarm(context);
 
         initSummary(getPreferenceScreen());
 

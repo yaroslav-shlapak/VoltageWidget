@@ -11,6 +11,8 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Utility.startBatteryInfoService(context);
+
         Utility.startUpdateService(context);
 
         Utility.updateAllWidgets(context);

@@ -11,8 +11,9 @@ public class WakeupReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Utility.startUpdateService(context);
+        Utility.startBatteryInfoService(context);
         Utility.updateAllWidgets(context);
+        Utility.startAlarm(context);
         Utility.showToast(context, "WakeupReceiver");
 
     }
