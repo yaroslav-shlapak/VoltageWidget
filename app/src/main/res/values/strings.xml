@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Voltage Widget</string>
 
-    <string name="batteryInfo">Battery Info</string>
+    <string name="batteryInfo">4000</string>
     <string name="action_settings">Settings</string>
     <string name="voltage_widget_shared_pref">com.voidgreen.voltagewidget</string>
     <string name="battery_info_shared_pref_key">battery info</string>

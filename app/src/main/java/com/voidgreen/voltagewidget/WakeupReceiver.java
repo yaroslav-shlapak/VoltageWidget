@@ -13,7 +13,7 @@ public class WakeupReceiver extends BroadcastReceiver {
 
         Utility.startBatteryInfoService(context);
         Utility.updateAllWidgets(context);
-        Utility.startAlarm(context);
+        //Utility.startAlarm(context);
         Utility.showToast(context, "WakeupReceiver");
 
     }

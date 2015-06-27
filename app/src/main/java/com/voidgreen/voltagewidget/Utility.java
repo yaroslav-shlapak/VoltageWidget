@@ -15,7 +15,7 @@ import android.widget.Toast;
  * Created by y.shlapak on Jun 15, 2015.
  */
 public class Utility {
-    public final static String DEFAULT_STRING = "WAIT";
+    public final static String DEFAULT_STRING = "4000";
     private static  AlarmManager alarmMgr;
     private static PendingIntent alarmIntent;
 
@@ -48,7 +48,9 @@ public class Utility {
     public static void updateWidget(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int widgetId) {
         VoltageWidgetData voltageWidgetData = new VoltageWidgetData(context);
         views.setTextColor(R.id.batteryInfoTextViewWidget, voltageWidgetData.getTextColor());
+        views.setTextColor(R.id.mV, voltageWidgetData.getTextColor());
         views.setFloat(R.id.batteryInfoTextViewWidget, "setTextSize", voltageWidgetData.getTextSize());
+        views.setFloat(R.id.mV, "setTextSize", voltageWidgetData.getTextSize() / 3);
 
         views.setTextViewText(R.id.batteryInfoTextViewWidget, Utility.getSavedBatteryInfo(context));
         appWidgetManager.updateAppWidget(widgetId, views);
@@ -82,7 +84,7 @@ public class Utility {
     public static void startAlarm(Context context) {
         alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         alarmIntent = PendingIntent.getBroadcast(context, 0, new Intent(context, AlarmManagerBroadcastReceiver.class), 0);
-        alarmMgr.setInexactRepeating(AlarmManager.RTC, SystemClock.elapsedRealtime() + 10 * 1000, 60 * 1000, alarmIntent);
+        alarmMgr.setInexactRepeating(AlarmManager.RTC, SystemClock.elapsedRealtime() + 60 * 1000, 60 * 1000, alarmIntent);
     }
 
     public static void stopAlarm() {

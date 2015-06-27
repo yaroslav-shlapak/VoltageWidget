@@ -12,15 +12,24 @@ import android.support.annotation.Nullable;
  */
 public class UpdateService extends Service {
 
+    private BroadcastReceiver receiver;
+
     @Override
     public void onCreate() {
         super.onCreate();
-        // REGISTER RECEIVER THAT HANDLES SCREEN ON AND SCREEN OFF LOGIC
         IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
-        BroadcastReceiver mReceiver = new WakeupReceiver();
-        registerReceiver(mReceiver, filter);
+        receiver = new WakeupReceiver();
+        registerReceiver(receiver, filter);
 
-        Utility.showToast(getApplicationContext(), "UpdateService");
+        Utility.showToast(getApplicationContext(), "UpdateService:onCreate");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
+        Utility.showToast(getApplicationContext(), "UpdateService:onDestroy");
+
     }
 
     @Nullable
