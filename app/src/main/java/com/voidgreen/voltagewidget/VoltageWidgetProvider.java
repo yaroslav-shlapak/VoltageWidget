@@ -22,7 +22,7 @@ public class VoltageWidgetProvider extends AppWidgetProvider {
         Utility.showToast(context, "VoltageWidgetProvider:onUpdate");
     }
 
-    @Override
+/*    @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
         super.onDeleted(context, appWidgetIds);
 
@@ -30,7 +30,7 @@ public class VoltageWidgetProvider extends AppWidgetProvider {
         Utility.stopUpdateService(context);
         Utility.stopAlarm();
         Utility.showToast(context, "VoltageWidgetProvider:onDeleted");
-    }
+    }*/
 
     @Override
     public void onEnabled(Context context) {
@@ -41,6 +41,16 @@ public class VoltageWidgetProvider extends AppWidgetProvider {
         Utility.startAlarm(context);
         Utility.showToast(context, "VoltageWidgetProvider:onEnabled");
 
+    }
+
+    @Override
+    public void onDisabled(Context context) {
+        super.onDisabled(context);
+
+        Utility.stopBatteryInfoService(context);
+        Utility.stopUpdateService(context);
+        Utility.stopAlarm();
+        Utility.showToast(context, "VoltageWidgetProvider:onDisabled");
     }
 
 
