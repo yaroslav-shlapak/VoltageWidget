@@ -78,13 +78,13 @@ public class Utility {
 
 
     public static void showToast(Context context, String string) {
-        Toast.makeText(context, string, Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, string, Toast.LENGTH_LONG).show();
     }
 
     public static void startAlarm(Context context) {
         alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         alarmIntent = PendingIntent.getBroadcast(context, 0, new Intent(context, AlarmManagerBroadcastReceiver.class), 0);
-        alarmMgr.setInexactRepeating(AlarmManager.RTC, SystemClock.elapsedRealtime() + 60 * 1000, 60 * 1000, alarmIntent);
+        alarmMgr.setInexactRepeating(AlarmManager.RTC, SystemClock.elapsedRealtime() + 10 * 1000, 180 * 1000, alarmIntent);
     }
 
     public static void stopAlarm() {
