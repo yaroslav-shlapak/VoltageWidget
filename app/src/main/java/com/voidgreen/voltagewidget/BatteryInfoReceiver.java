@@ -12,11 +12,15 @@ public class BatteryInfoReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 3000);
+
+        String string;
+
         if (voltage < 3000) {
-            voltage = voltage * 1000;
+            string = "Your device is not supported";
+        } else {
+            string = Integer.toString(voltage);
         }
 
-        String string = Integer.toString(voltage);
 
         Utility.saveBatteryInfo(context, string);
         Utility.updateAllWidgets(context);
